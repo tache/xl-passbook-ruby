@@ -28,7 +28,7 @@ module Helpers
       zip_file_io.rewind
       file.write zip_file_io.sysread.force_encoding("UTF-8")
     end
-    Zip::ZipInputStream::open("test.zip")
+    Zip::InputStream::open("test.zip")
   end
 
   def file_from_zip zip_file_io, filename
@@ -51,7 +51,7 @@ module Helpers
     # end
     # puts "We got #{zip_file_io.size}"
 
-    # Zip::ZipInputStream::open_buffer(zip_file_io) do |io|
+    # Zip::InputStream::open_buffer(zip_file_io) do |io|
     #   entry = io.get_next_entry
     #   # while (entry = io.get_next_entry) do
     #   #     puts "entry: #{entry.name}"
