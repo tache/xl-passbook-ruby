@@ -1,7 +1,7 @@
 module Passbook
-  module PassConfig
-    class Validator
-      REQUIRED = %i(cert_path cert_password template_path).freeze
+  module Validators
+    class PassConfig
+      REQUIRED = %w(cert_path cert_password template_path).freeze
       attr_reader :error
 
       def initialize(config_attrs)
@@ -14,6 +14,8 @@ module Passbook
       end
 
       private
+
+      attr_reader :config_attrs
 
       def present?(attr)
         if config_attrs[attr].present? # no empty string!

@@ -19,7 +19,7 @@ require "rails/test_help"
 require_relative '../lib/passbook-ruby'
 require_relative '../lib/passbook/config'
 require_relative '../lib/passbook/pkpass'
-
+require_relative '../lib/passbook/validators/pass_config'
 
 module Helpers
 

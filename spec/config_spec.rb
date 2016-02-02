@@ -13,33 +13,65 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-
-
-
 require 'spec_helper'
 
-describe Passbook::Config do
-  # it "should throw ArgumentError because wwdr_intermediate_certificate_path is missing"  do
-  #   expect {Passbook::Config.instance.configure {}}.to raise_error(ArgumentError)
-  # end
+module Passbook
+  describe Config do
+    # it "should throw ArgumentError because wwdr_intermediate_certificate_path is missing"  do
+    #   expect {Passbook::Config.instance.configure {}}.to raise_error(ArgumentError)
+    # end
 
-  it "should throw ArgumentError because cert_path is missing" do
-    expect{ Passbook::Config.instance.add_pkpass do |passbook|
-      passbook.wwdr_intermediate_certificate_path = "test"
-      passbook.wwdr_certificate = OpenSSL::X509::Certificate.new
-      passbook.pass_config["pass.com.acme"] = {"template_path"=>"tmp"}
-    end}.to raise_error(ArgumentError)
+    it 'should throw ArgumentError because cert_path is missing' do
+      expect {
+        Passbook::Config.instance.add_pkpass do |passbook|
+          passbook.wwdr_intermediate_certificate_path = 'test'
+          passbook.wwdr_certificate = OpenSSL::X509::Certificate.new
+          passbook.pass_config['pass.com.acme'] = {
+            'cert_password' => 'foo',
+            'template_path' =>'tmp'
+          }
+        end
+      }.to raise_error(ArgumentError, 'cert_path is required in your config')
+    end
+
+    it 'should throw ArgumentError because cert_password is missing' do
+      expect {
+        Passbook::Config.instance.add_pkpass do |passbook|
+          passbook.wwdr_intermediate_certificate_path = 'test'
+          passbook.wwdr_certificate = OpenSSL::X509::Certificate.new
+          passbook.pass_config['pass.com.acme'] = {
+            'cert_path' =>'tmp',
+            'template_path' =>'tmp'
+          }
+        end
+      }.to raise_error(ArgumentError, 'cert_password is required in your config')
+    end
+
+    it 'throws ArgumentError when template_password is missing' do
+      expect {
+        Passbook::Config.instance.add_pkpass do |passbook|
+          passbook.wwdr_intermediate_certificate_path = 'test'
+          passbook.wwdr_certificate = OpenSSL::X509::Certificate.new
+          passbook.pass_config['pass.com.acme'] = {
+            'cert_path' =>'tmp',
+            'cert_password' => 'haha'
+          }
+        end
+      }.to raise_error(ArgumentError, 'template_path is required in your config')
+    end
+
+    it 'throws no errors when required config settings are present' do
+      expect {
+        Passbook::Config.instance.add_pkpass do |passbook|
+          passbook.wwdr_intermediate_certificate_path = 'test'
+          passbook.wwdr_certificate = OpenSSL::X509::Certificate.new
+          passbook.pass_config['pass.com.acme'] = {
+            'cert_path' => 'tmp',
+            'cert_password' => 'haha',
+            'template_path' =>'tmp'
+          }
+        end
+      }.not_to raise_error(ArgumentError)
+    end
   end
-
-  it "should throw ArgumentError because cert_password is missing" do
-    expect{ Passbook::Config.instance.add_pkpass do |passbook|
-      passbook.wwdr_intermediate_certificate_path = "test"
-      passbook.wwdr_certificate = OpenSSL::X509::Certificate.new
-      passbook.pass_config["pass.com.acme"] = {
-                                                "cert_path"=>"tmp"
-                                              }
-    end}.to raise_error(ArgumentError)
-  end
-
 end
-
