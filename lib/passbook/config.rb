@@ -43,7 +43,7 @@ module Passbook
 
     def validate_config
       self.pass_config.values.each do |config|
-        validator = PassConfig::Validator.new config
+        validator = Passbook::Validators::PassConfig.new config
         error validator.error unless validator.valid?
       end
     end
