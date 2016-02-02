@@ -4,7 +4,7 @@ module Passbook
   module Validators
     describe PassConfig, '#valid?' do
       it 'requires cert_path' do
-        attrs = { foo: 'bar' }
+        attrs = { 'foo' => 'bar' }
         validator = described_class.new attrs
 
         expect(validator).not_to be_valid
@@ -12,7 +12,7 @@ module Passbook
       end
 
       it 'requires cert_password' do
-        attrs = { cert_path: 'bar' }
+        attrs = { 'cert_path' => 'bar' }
         validator = described_class.new attrs
 
         expect(validator).not_to be_valid
@@ -20,7 +20,7 @@ module Passbook
       end
 
       it 'requires template_path' do
-        attrs = { cert_path: 'bar', cert_password: 'foo' }
+        attrs = { 'cert_path' => 'bar', 'cert_password' => 'foo' }
         validator = described_class.new attrs
 
         expect(validator).not_to be_valid
@@ -28,7 +28,7 @@ module Passbook
       end
 
       it 'is valid when required fields are defined' do
-        attrs = { cert_path: 'bar', cert_password: 'foo', template_path: 'ha' }
+        attrs = { 'cert_path' => 'bar', 'cert_password' => 'foo', 'template_path' => 'ha' }
         expect(described_class.new attrs).to be_valid
       end
     end

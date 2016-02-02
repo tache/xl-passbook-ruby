@@ -15,6 +15,7 @@
 
 require 'fileutils'
 require 'singleton'
+require 'passbook/validators/pass_config'
 
 module Passbook
   class Config
