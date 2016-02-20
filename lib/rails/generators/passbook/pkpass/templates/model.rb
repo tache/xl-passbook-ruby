@@ -1,4 +1,3 @@
-
 #  Copyright 2012 Xtreme Labs
 
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,12 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-
-
-
 class <%= class_name %> < ActiveRecord::Base
-  attr_protected :serial_number, :authentication_token
-  attr_accessible :card_id
   before_create :set_pass_fields
 
   def set_pass_fields

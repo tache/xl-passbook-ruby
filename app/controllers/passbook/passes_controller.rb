@@ -1,4 +1,3 @@
-
 #  Copyright 2012 Xtreme Labs
 
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,9 +11,6 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
-
-
 
 module Passbook
   class PassesController < ApplicationController
@@ -30,5 +26,12 @@ module Passbook
       pass ||=Passbook.pass_type_id_to_class(params[:pass_type_id]).update_or_create params
       render :pkpass => pass
     end
+    
+    private
+    
+    def pass_params
+      params.require(:pass).permit(:card_id, :authentication_token)
+    end
+    
   end
 end
