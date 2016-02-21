@@ -16,9 +16,9 @@
 require "rails"
 require "rails/test_help"
 
-require_relative '../lib/passbook-ruby'
-require_relative '../lib/passbook/config'
-require_relative '../lib/passbook/pkpass'
+require_relative '../lib/xlpassbook-ruby'
+require_relative '../lib/xlpassbook/config'
+require_relative '../lib/xlpassbook/pkpass'
 
 
 module Helpers
