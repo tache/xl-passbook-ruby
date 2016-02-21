@@ -16,7 +16,7 @@
 
 
 # @private
-class CreatePassbookRegistrations < ActiveRecord::Migration
+class CreateXLPassbookRegistrations < ActiveRecord::Migration
   def change
     create_table :passbook_registrations do |t|
       t.string :uuid

@@ -15,7 +15,7 @@
 
 
 
-module Passbook
+module XLPassbook
   class LogsController < ApplicationController
 
     def log

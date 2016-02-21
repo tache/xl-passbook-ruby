@@ -24,14 +24,14 @@ RSpec.configure do |c|
   c.include Helpers
 end
 
-describe Passbook::Pkpass do
+describe XLPassbook::Pkpass do
   before :all do
-    Passbook::Config.instance.configure do |passbook|
+    XLPassbook::Config.instance.configure do |passbook|
       passbook.wwdr_certificate = OpenSSL::X509::Certificate.new
       passbook.wwdr_intermediate_certificate_path = "#{Dir.pwd}/spec/data/certificates/wwdr.pem"
     end
 
-    Passbook::Config.instance.add_pkpass do |passbook|
+    XLPassbook::Config.instance.add_pkpass do |passbook|
       template_path =  "#{Dir.pwd}/spec/data/templates"
       cert_path = "#{Dir.pwd}/spec/data/certificates"
       passbook.pass_config["pass.com.acme"]={
@@ -44,16 +44,16 @@ describe Passbook::Pkpass do
   end
 
   before :each do
-    @pass = Passbook::Pkpass.new("pass.com.acme", "test")
+    @pass = XLPassbook::Pkpass.new("pass.com.acme", "test")
   end
 
 
   it "should throw ArgumentError because there is no config for 'test'" do
-    expect {Passbook::Pkpass.new("test", "test")}.to raise_error(ArgumentError, /configuration for test/)
+    expect {XLPassbook::Pkpass.new("test", "test")}.to raise_error(ArgumentError, /configuration for test/)
   end
 
   it "should make an instance of Pkpass" do
-    expect {Passbook::Pkpass.new("pass.com.acme", "test")}.to_not raise_error
+    expect {XLPassbook::Pkpass.new("pass.com.acme", "test")}.to_not raise_error
   end
 
   it "should have the added file in zip file" do

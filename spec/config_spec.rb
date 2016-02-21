@@ -18,13 +18,13 @@
 
 require 'spec_helper'
 
-describe Passbook::Config do
+describe XLPassbook::Config do
   # it "should throw ArgumentError because wwdr_intermediate_certificate_path is missing"  do
-  #   expect {Passbook::Config.instance.configure {}}.to raise_error(ArgumentError)
+  #   expect {XLPassbook::Config.instance.configure {}}.to raise_error(ArgumentError)
   # end
 
   it "should throw ArgumentError because cert_path is missing" do
-    expect{ Passbook::Config.instance.add_pkpass do |passbook|
+    expect{ XLPassbook::Config.instance.add_pkpass do |passbook|
       passbook.wwdr_intermediate_certificate_path = "test"
       passbook.wwdr_certificate = OpenSSL::X509::Certificate.new
       passbook.pass_config["pass.com.acme"] = {"template_path"=>"tmp"}
@@ -32,7 +32,7 @@ describe Passbook::Config do
   end
 
   it "should throw ArgumentError because cert_password is missing" do
-    expect{ Passbook::Config.instance.add_pkpass do |passbook|
+    expect{ XLPassbook::Config.instance.add_pkpass do |passbook|
       passbook.wwdr_intermediate_certificate_path = "test"
       passbook.wwdr_certificate = OpenSSL::X509::Certificate.new
       passbook.pass_config["pass.com.acme"] = {

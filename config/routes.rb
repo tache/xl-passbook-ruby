@@ -16,15 +16,15 @@
 
 
 
-if Passbook::Config.instance.enable_routes
+if XLPassbook::Config.instance.enable_routes
   Rails.application.routes.draw do
-    get "/v1/passes/:pass_type_id/:serial_number" => "passbook/passes#get_pass", :constraints => { :pass_type_id => /[^\/]+/ }
+    get "/v1/passes/:pass_type_id/:serial_number" => "xlpassbook/passes#get_pass", :constraints => { :pass_type_id => /[^\/]+/ }
 
-    post "/v1/devices/:device_id/registrations/:pass_type_id/:serial_number" => "passbook/registrations#create", :constraints => { :pass_type_id => /[^\/]+/ }
-    delete "/v1/devices/:device_id/registrations/:pass_type_id/:serial_number" => "passbook/registrations#delete", :constraints => { :pass_type_id => /[^\/]+/ }
-    get "/v1/devices/:device_id/registrations/:pass_type_id" =>"passbook/registrations#updatable", :constraints => { :pass_type_id => /[^\/]+/ }
+    post "/v1/devices/:device_id/registrations/:pass_type_id/:serial_number" => "xlpassbook/registrations#create", :constraints => { :pass_type_id => /[^\/]+/ }
+    delete "/v1/devices/:device_id/registrations/:pass_type_id/:serial_number" => "xlpassbook/registrations#delete", :constraints => { :pass_type_id => /[^\/]+/ }
+    get "/v1/devices/:device_id/registrations/:pass_type_id" =>"xlpassbook/registrations#updatable", :constraints => { :pass_type_id => /[^\/]+/ }
 
-    post "/v1/log" => "passbook/logs#log"
+    post "/v1/log" => "xlpassbook/logs#log"
   end
 end
 

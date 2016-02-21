@@ -19,7 +19,7 @@
 require 'fileutils'
 require 'singleton'
 
-module Passbook
+module XLPassbook
   class Config
     include Singleton
     attr_accessor :pass_config, :wwdr_intermediate_certificate_path, :wwdr_certificate, :preload_template, :enable_routes

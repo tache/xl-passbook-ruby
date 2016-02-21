@@ -16,17 +16,17 @@
 
 
 
-require "passbook/config"
-require "passbook/pkpass"
-require "passbook/engine"
+require "xlpassbook/config"
+require "xlpassbook/pkpass"
+require "xlpassbook/engine"
 
 require "action_controller"
 
 
-module Passbook
+module XLPassbook
   # @private
   def self.pass_type_id_to_class pass_type_id
-    Passbook::Config.instance.pass_config[pass_type_id]['class'].constantize
+    XLPassbook::Config.instance.pass_config[pass_type_id]['class'].constantize
   end
 
   # Public: Determine if the given object matches the specified config.
@@ -51,7 +51,7 @@ module Passbook
   # Public: Determine what pass to use for the specified object.
   # Returns a string id for the pass configuration.
   def self.find_pass_type_id_for(obj)
-    Passbook::Config.instance.pass_config.each do |pass_id, pass_config|
+    XLPassbook::Config.instance.pass_config.each do |pass_id, pass_config|
       return pass_id if object_matches_pass_config obj, pass_id, pass_config
     end
 
@@ -69,7 +69,7 @@ module Passbook
     Mime::Type.register 'application/vnd.apple.pkpass', :pkpass
 
     ActionController::Renderers.add :pkpass do |obj, options|
-      pkpass = Passbook::Pkpass.new Passbook.find_pass_type_id_for(obj), obj.serial_number
+      pkpass = XLPassbook::Pkpass.new XLPassbook.find_pass_type_id_for(obj), obj.serial_number
       obj.update_pass pkpass if obj.respond_to? :update_pass
       pkpass_io = pkpass.package
       response.headers["last-modified"] = obj.updated_at.strftime("%Y-%m-%d %H:%M:%S")

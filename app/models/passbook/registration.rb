@@ -16,7 +16,7 @@
 
 
 
-module Passbook
+module XLPassbook
   # Model for passbook registrations
   #
   # @private

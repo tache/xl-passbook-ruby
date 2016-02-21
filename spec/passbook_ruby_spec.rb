@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Passbook do
+describe XLPassbook do
 
   class DummyPass; end
 
@@ -13,11 +13,11 @@ describe Passbook do
       before(:each) { DummyPass.any_instance.stub(:pass_type_id).and_return "test_pass" }
 
       it "returns true when object.pass_type_id == specified pass_type_id" do
-        expect(Passbook.object_matches_pass_config dummy, "test_pass", {}).to be_true
+        expect(XLPassbook.object_matches_pass_config dummy, "test_pass", {}).to be_true
       end
 
       it "returns false when object is no match" do
-        expect(Passbook.object_matches_pass_config dummy, "new_pass", {}).to be_false
+        expect(XLPassbook.object_matches_pass_config dummy, "new_pass", {}).to be_false
       end
 
     end
@@ -27,12 +27,12 @@ describe Passbook do
       let(:pass_config) { { "class" => "DummyPass" } }
 
       it "returns true when object class name == class name in pass config" do
-        expect(Passbook.object_matches_pass_config dummy, "random_pass", pass_config).to be_true
+        expect(XLPassbook.object_matches_pass_config dummy, "random_pass", pass_config).to be_true
       end
 
       it "returns false when object is no match" do
         pass_config["class"] = "NotAMatch"
-        expect(Passbook.object_matches_pass_config dummy, "random_pass", pass_config).to be_false
+        expect(XLPassbook.object_matches_pass_config dummy, "random_pass", pass_config).to be_false
       end
 
     end
@@ -42,7 +42,7 @@ describe Passbook do
   context "#find_pass_type_id_for:" do
 
     before do
-      Passbook::Config.instance.stub(:pass_config).and_return(
+      XLPassbook::Config.instance.stub(:pass_config).and_return(
         "test_pass1" => {
             "cert_path"     => "some/random/path1",
             "cert_password" => SecureRandom.hex(10),
@@ -68,12 +68,12 @@ describe Passbook do
 
       it "returns a String when object.pass_type_id == specified pass_type_id" do
         DummyPass.any_instance.stub(:pass_type_id).and_return "test_pass2"
-        expect(Passbook.find_pass_type_id_for dummy).to eq("test_pass2")
+        expect(XLPassbook.find_pass_type_id_for dummy).to eq("test_pass2")
       end
 
       it "returns Nil when object is no match" do
         DummyPass.any_instance.stub(:pass_type_id).and_return "test_pass9"
-        expect(Passbook.find_pass_type_id_for dummy).to be_nil
+        expect(XLPassbook.find_pass_type_id_for dummy).to be_nil
       end
 
     end
@@ -81,12 +81,12 @@ describe Passbook do
     context "when object doesn't respond to :pass_type_id" do
 
       it "returns a String when object class name == class name in pass config" do
-        expect(Passbook.find_pass_type_id_for dummy).to eq("test_pass1")
+        expect(XLPassbook.find_pass_type_id_for dummy).to eq("test_pass1")
       end
 
       it "returns Nil when object is no match" do
         dummy.stub_chain(:class, :to_s).and_return "FakeName"
-        expect(Passbook.find_pass_type_id_for dummy).to be_nil
+        expect(XLPassbook.find_pass_type_id_for dummy).to be_nil
       end
 
     end

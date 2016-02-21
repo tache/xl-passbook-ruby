@@ -38,12 +38,12 @@
 # Copyright ( C ) 2012 Apple Inc. All Rights Reserved.
 
 
-module Passbook
+module XLPassbook
   class RegistrationsController < ApplicationController
     def create
       puts "Handling registration request..."
       # validate that the request is authorized to deal with the pass referenced
-      pass = Passbook.pass_type_id_to_class(params[:pass_type_id]).where(:serial_number => params[:serial_number]).where(:authentication_token => authentication_token).first
+      pass = XLPassbook.pass_type_id_to_class(params[:pass_type_id]).where(:serial_number => params[:serial_number]).where(:authentication_token => authentication_token).first
       unless pass.blank?
         puts 'Pass and authentication token match.'
 
@@ -84,7 +84,7 @@ module Passbook
     def delete
       puts "Handling unregistration request..."
       puts authentication_token
-      pass = Passbook.pass_type_id_to_class(params[:pass_type_id]).where(:serial_number => params[:serial_number], :authentication_token => authentication_token).first
+      pass = XLPassbook.pass_type_id_to_class(params[:pass_type_id]).where(:serial_number => params[:serial_number], :authentication_token => authentication_token).first
       if pass
         puts 'Pass and authentication token match.'
 
@@ -121,9 +121,9 @@ module Passbook
 
         # The passesUpdatedSince param is optional for scoping the update query
         if params[:passesUpdatedSince] && params[:passesUpdatedSince] != ""
-          registered_passes = Passbook.pass_type_id_to_class(params[:pass_type_id]).where(:serial_number => registered_serial_numbers).where('updated_at IS NULL OR updated_at >= ?', params[:passesUpdatedSince])
+          registered_passes = XLPassbook.pass_type_id_to_class(params[:pass_type_id]).where(:serial_number => registered_serial_numbers).where('updated_at IS NULL OR updated_at >= ?', params[:passesUpdatedSince])
         else
-          registered_passes = Passbook.pass_type_id_to_class(params[:pass_type_id]).where(:serial_number => registered_serial_numbers)
+          registered_passes = XLPassbook.pass_type_id_to_class(params[:pass_type_id]).where(:serial_number => registered_serial_numbers)
         end
 
         # Are there passes that this device should recieve updates for?

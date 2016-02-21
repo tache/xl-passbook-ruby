@@ -16,7 +16,7 @@
 
 
 
-Passbook::Config.instance.configure do |passbook|
+XLPassbook::Config.instance.configure do |passbook|
   # Templates are preloaded in production and dynamically loaded in development by default
   # You can control the behaviour by setting the 'preload_templates'
   #

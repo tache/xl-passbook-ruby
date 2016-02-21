@@ -21,7 +21,7 @@ require 'json'
 require 'openssl'
 require 'zip'
 
-module Passbook
+module XLPassbook
   # Pkpass is the class responsible for managing the contect of a pkpass and also signing the package
   class Pkpass
     attr_accessor :files, :translations, :json, :pass_type_id, :serial_number,  :config

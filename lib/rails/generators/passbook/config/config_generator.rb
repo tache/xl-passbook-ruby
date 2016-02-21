@@ -18,7 +18,7 @@
 
 require 'fileutils'
 
-module Passbook
+module XLPassbook
   module Generators
     class ConfigGenerator < Rails::Generators::Base
       source_root File.expand_path('../templates', __FILE__)

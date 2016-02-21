@@ -81,7 +81,7 @@ return the correct value for #pass_type_id.
 ```
 # Use the same Apple Pass Type ID for all of our passes. 
 # Define custom looks.
-Passbook::Config.instance.add_pkpass do |passbook|
+XLPassbook::Config.instance.add_pkpass do |passbook|
   shared_pass_data = {
     "cert_path"     => "path/to/desired/cert.p12",
     "cert_password" => "password_for_cert"

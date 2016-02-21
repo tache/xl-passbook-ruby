@@ -14,7 +14,7 @@
 #  limitations under the License.
 
 
-module Passbook
+module XLPassbook
   # This is just a declaration of a Rails engine
   #
   # @private
